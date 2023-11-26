@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="666dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="0dp">
+
+        <LinearLayout
+            android:id="@+id/buttonlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
+            android:layout_marginTop="1dp"
+            android:orientation="vertical">
+
+            <!-- 채팅방 버튼들 -->
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="161dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="?attr/actionBarTheme" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar4"
+        android:layout_width="161dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="?attr/actionBarTheme" />
+
+    <!-- 채팅방 삭제 -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/removeChatRoom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="17dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+
+        android:src="@drawable/minus_btn"
+        app:fabCustomSize="48dp"
+        app:maxImageSize="27dp" />
+
+    <!-- 채팅방 생성 -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/createChatRoom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginBottom="17dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+
+
+        android:src="@drawable/plus_btn"
+        app:fabCustomSize="48dp"
+        app:maxImageSize="27dp"
+        />
+
+    <!-- 채팅방 생성 & 삭제 fabButton -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/setRoomList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"
+        android:backgroundTint="?attr/colorAccent"
+
+        android:src="@drawable/make"
+        app:tint="@null"
+        app:maxImageSize="47dp"
+        app:fabCustomSize="55dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="96dp"
+        android:layout_height="63dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="156dp"
+        android:layout_marginEnd="159dp"
+        app:srcCompat="@drawable/hansin" />
+
+</RelativeLayout>

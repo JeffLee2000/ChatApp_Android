@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatRoomActivity">
+
+    <!-- 대화 내용 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/input_layout" />
+
+    <!-- 입력 레이아웃 -->
+    <LinearLayout
+        android:id="@+id/input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:weightSum="100">
+
+        <!-- 입력 텍스트 -->
+        <!-- 33의 배수로 maxHegiht를 늘려야 함 -->
+        <EditText
+            android:id="@+id/message_edit"
+            android:layout_width="wrap_content"
+            android:maxWidth="180dp"
+            android:layout_height="wrap_content"
+            android:maxHeight="132dp"
+            android:layout_marginStart="10dp"
+            android:padding="10dp"
+            android:layout_weight="85"
+            android:background="@drawable/edit_background"
+
+            android:hint="메세지를 입력하세요"
+            android:paddingStart="10dp" />
+
+        <!-- 전송 버튼 -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/send_btn"
+            android:layout_width="50dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="15"
+
+            android:background="@drawable/btn_background"
+            android:text="전송"
+            android:textColor="@color/white"
+            android:textSize="13dp" />
+    </LinearLayout>
+</RelativeLayout>
