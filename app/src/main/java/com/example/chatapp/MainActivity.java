@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AppController.setMainActivity(this);
-        AppController.runClient("http://172.30.1.28:3000");
+        AppController.runClient("http://10.150.1.30:3000");
 
         saveButton = findViewById(R.id.button);
 
@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
                 // chat_room_list.xml 페이지 이동
                 Intent intent = new Intent(MainActivity.this, ChatRoomListActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
