@@ -55,11 +55,26 @@ public class WebSocketClient {
                 JSONObject jObject = new JSONObject();
                 jObject.put("request", "search-room");
                 jObject.put("room-name", String.valueOf(room_name));
+                jObject.put("password", "null");
                 sendString(jObject.toString());
             } catch(Exception e){
                 Log.e("request_search_room", e.getMessage());
                 return false;
             }
+        }
+        return true;
+    }
+
+    public boolean request_search_room(String room_name, String password){
+        try {
+            JSONObject jObject = new JSONObject();
+            jObject.put("request", "search-room");
+            jObject.put("room-name", room_name);
+            jObject.put("password", password);
+            sendString(jObject.toString());
+        } catch(Exception e){
+            Log.e("request_search_room", e.getMessage());
+            return false;
         }
         return true;
     }

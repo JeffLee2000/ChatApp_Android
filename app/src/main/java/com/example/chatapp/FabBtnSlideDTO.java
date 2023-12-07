@@ -6,6 +6,7 @@ public class FabBtnSlideDTO {
     private boolean slide_status = false; // 플로팅 버튼 상태
     private FloatingActionButton createChatRoomBtn; // 채팅방 생성 버튼
     private FloatingActionButton removeChatRoomBtn; // 채팅방 삭제 버튼
+    private FloatingActionButton searchRoomBtn;
 
     // Getter & Setter
     public Boolean getSlide_status() {
@@ -30,5 +31,11 @@ public class FabBtnSlideDTO {
 
     public void setRemoveChatRoomBtn(FloatingActionButton removeChatRoomBtn) {
         this.removeChatRoomBtn = removeChatRoomBtn;
+    }
+
+    public FloatingActionButton getSearchRoomBtn(){ return searchRoomBtn; }
+
+    public void setSearchRoomBtn(FloatingActionButton searchRoomBtn){
+        this.searchRoomBtn = searchRoomBtn;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.chatapp;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -24,21 +26,25 @@ public class AppController {
 
     public static ArrayList<ChatTextDTO> texts = new ArrayList<ChatTextDTO>();
 
-
     //채팅방 리스트를 업데이트함
     public static void updateChatRoomList(){
+        chatRoomListActivity.clearChatRoomLayout();
         for(String name : room_list.keySet())
             chatRoomListActivity.createChatRoomLayout(name, false, null);
     }
     //웹 소켓 클라이언트를 작동시킨다.
-    public static void runClient(String url) {
-        client = new WebSocketClient(url);
-    }
+    public static void runClient(String url) { client = new WebSocketClient(url); }
     //웹 서버에 채팅방 리스트를 요구하는 함수
     public static void request_search_room(String room_name){
         boolean success = client.request_search_room(room_name);
         while(!success)
             success = client.request_search_room(room_name);
+    }
+
+    public static void request_search_room(String room_name, String password){
+        boolean success = client.request_search_room(room_name, password);
+        while(!success)
+            success = client.request_search_room(room_name, password);
     }
 
     //채팅방 내용을 추가
@@ -64,11 +70,6 @@ public class AppController {
             }
         }
         return false;
-    }
-
-    public static boolean enter_room_by_id(String room_id){
-        texts.clear();
-        return client.request_enter_room(room_id);
     }
 
     //채팅 전송

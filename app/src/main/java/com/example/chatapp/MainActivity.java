@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AppController.setMainActivity(this);
-        AppController.runClient("http://10.150.1.30:3000");
+        AppController.runClient("http://10.150.8.190:3000");
 
         saveButton = findViewById(R.id.button);
 

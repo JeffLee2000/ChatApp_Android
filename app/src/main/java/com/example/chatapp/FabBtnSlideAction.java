@@ -13,6 +13,8 @@ public interface FabBtnSlideAction {
             fc_animation.start();
             ObjectAnimator fe_animation = ObjectAnimator.ofFloat(fabBtnInfo.getRemoveChatRoomBtn(), "translationY", 0f);
             fe_animation.start();
+            ObjectAnimator fs_animation = ObjectAnimator.ofFloat(fabBtnInfo.getSearchRoomBtn(), "translationY", 0f);
+            fs_animation.start();
 
             fabBtnInfo.setSlide_status(false); // slide down 상태로 변경
         } else { // slide down 상태
@@ -21,6 +23,8 @@ public interface FabBtnSlideAction {
             fc_animation.start();
             ObjectAnimator fe_animation = ObjectAnimator.ofFloat(fabBtnInfo.getRemoveChatRoomBtn(), "translationY", -330f);
             fe_animation.start();
+            ObjectAnimator fs_animation = ObjectAnimator.ofFloat(fabBtnInfo.getSearchRoomBtn(), "translationY", -505f);
+            fs_animation.start();
 
             fabBtnInfo.setSlide_status(true); // slide up 상태로 변경
         }

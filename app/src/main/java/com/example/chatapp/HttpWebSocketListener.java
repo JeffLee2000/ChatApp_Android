@@ -1,5 +1,7 @@
 package com.example.chatapp;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -11,6 +13,17 @@ import okhttp3.WebSocketListener;
 import okio.ByteString;
 
 public class HttpWebSocketListener {
+    private static final Handler chatRoomUpdater = new Handler(){
+        public void handleMessage(Message msg){
+            AppController.updateChatRoom();
+        }
+    };
+
+    private static final Handler chatRoomListUpdater = new Handler(){
+        public void handleMessage(Message msg){
+            AppController.updateChatRoomList();
+        }
+    };
     public static WebSocketListener listener = new WebSocketListener() {
         @Override
         public void onClosed(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
@@ -46,7 +59,8 @@ public class HttpWebSocketListener {
             String room_name = jObject.getString("room-name");
             String room_id = jObject.getString("room-id");
             AppController.room_list.put(room_name, room_id);
-            AppController.updateChatRoomList();
+            Message msg = chatRoomListUpdater.obtainMessage();
+            chatRoomListUpdater.sendMessage(msg);
         }catch(Exception e){
             Log.e("reply_search_room", e.getMessage());
         }
@@ -72,6 +86,8 @@ public class HttpWebSocketListener {
             String text = jObject.getString("text");
 
             AppController.addChatText(user_id, user_nickname, text);
+            Message msg = chatRoomUpdater.obtainMessage();
+            chatRoomUpdater.sendMessage(msg);
         } catch(Exception e){
             Log.e("reply_enter_room", e.getMessage());
             return false;
@@ -84,7 +100,14 @@ public class HttpWebSocketListener {
             System.out.println(jObject.toString());
             String answer = jObject.getString("answer");
             if(answer.equals("Error")) return false;
-            AppController.enter_room_by_id(AppController.current_room_id);
+
+            String user_id = jObject.getString("user-id");
+            String user_nickname = jObject.getString("user-nickname");
+            String text = jObject.getString("text");
+
+            AppController.addChatText(user_id, user_nickname, text);
+            Message msg = chatRoomUpdater.obtainMessage();
+            chatRoomUpdater.sendMessage(msg);
         } catch(Exception e){
             Log.e("reply_chat", e.getMessage());
             return false;
@@ -101,7 +124,8 @@ public class HttpWebSocketListener {
             String room_id = jObject.getString("room-id");
 
             AppController.room_list.put(room_name, room_id);
-            AppController.updateChatRoomList();
+            Message msg = chatRoomListUpdater.obtainMessage();
+            chatRoomListUpdater.sendMessage(msg);
         } catch(Exception e){
             Log.e("reply_make_room", e.getMessage());
             return false;

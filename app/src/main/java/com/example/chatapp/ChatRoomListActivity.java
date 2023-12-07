@@ -24,6 +24,7 @@ public class ChatRoomListActivity extends AppCompatActivity implements FabBtnSli
     private List<String> roomNameList = new ArrayList<>(); // 현재 생성된 채팅방 이름 저장
     private FloatingActionButton createChatRoomBtn; // 채팅방 생성 버튼
     private FloatingActionButton removeChatRoomBtn; // 채팅방 삭제 버튼
+    private FloatingActionButton searchRoomBtn;
     private FabBtnSlideDTO fabBtnInfo = new FabBtnSlideDTO();
     private LinearLayout buttonLayout; // 채팅방 목록 layout
 
@@ -40,12 +41,15 @@ public class ChatRoomListActivity extends AppCompatActivity implements FabBtnSli
         fabBtnInfo.setSlide_status(false);
         createChatRoomBtn = findViewById(R.id.createChatRoom);
         removeChatRoomBtn = findViewById(R.id.removeChatRoom);
+        searchRoomBtn = findViewById(R.id.searchRoom);
         fabBtnInfo.setCreateChatRoomBtn(createChatRoomBtn);
         fabBtnInfo.setRemoveChatRoomBtn(removeChatRoomBtn);
+        fabBtnInfo.setSearchRoomBtn(searchRoomBtn);
         buttonLayout = findViewById(R.id.buttonlayout);
         FloatingActionButton setRoomList = findViewById(R.id.setRoomList); // 채팅방 설정 리스트 버튼
 
         // 공개방의 정보를 읽어온다.
+        clearChatRoomLayout();
         AppController.room_list.clear();
         AppController.request_search_room(null);
 
@@ -72,7 +76,12 @@ public class ChatRoomListActivity extends AppCompatActivity implements FabBtnSli
                 showDeleteChatRoomDialog();
             }
         });
+
+        searchRoomBtn.setOnClickListener((v) -> {
+            searchRoomDialog();
+        });
     }
+
     // 채팅방 삭제 dialog
     private void showDeleteChatRoomDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -157,8 +166,6 @@ public class ChatRoomListActivity extends AppCompatActivity implements FabBtnSli
         roomNameList.remove(roomName);
     }
 
-
-
     // 채팅방 생성 dialog
     private void createChatRoomDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -166,9 +173,9 @@ public class ChatRoomListActivity extends AppCompatActivity implements FabBtnSli
         builder.setView(dialogView);
 
         // 채팅방 생성하는 dialog 입력 부분
-        EditText roomNameEditText = dialogView.findViewById(R.id.roomNameEditText); // 채팅방 제목 텍스트
+        EditText roomNameEditText = dialogView.findViewById(R.id.roomName); // 채팅방 제목 텍스트
         CheckBox passwordCheckBox = dialogView.findViewById(R.id.passwordCheckBox); // 비밀번호 설정 체크박스
-        EditText passwordEditText = dialogView.findViewById(R.id.passwordEditText); // 비밀번호 설정 텍스트
+        EditText passwordEditText = dialogView.findViewById(R.id.password); // 비밀번호 설정 텍스트
 
         // 채팅방 생성 "확인" 버튼
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -178,9 +185,8 @@ public class ChatRoomListActivity extends AppCompatActivity implements FabBtnSli
                 boolean isPasswordSet = passwordCheckBox.isChecked();
                 String roomPassword = passwordEditText.getText().toString();
 
-                if(!isPasswordSet) roomPassword = "null";
+                if (!isPasswordSet) roomPassword = "null";
                 AppController.make_chat_room(roomName, roomPassword);
-                createChatRoomLayout(roomName, isPasswordSet, roomPassword);
                 dialog.dismiss();
             }
         });
@@ -255,14 +261,17 @@ public class ChatRoomListActivity extends AppCompatActivity implements FabBtnSli
         builder.show();
     }
 
+    public void clearChatRoomLayout(){
+        buttonLayout.removeAllViewsInLayout();
+        buttonCount = 0;
+    }
+
     // 새로운 채팅방 레이아웃 추가
     public void createChatRoomLayout(String roomName, boolean isPasswordSet, String roomPassword) {
         Button newButton = new Button(this);
         newButton.setText("Room: " + roomName);
         buttonLayout.addView(newButton);
         buttonCount++;
-
-        roomNameList.add(roomName); // 채팅방 목록에 존재하는 채팅방 이름 저장
 
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -283,5 +292,38 @@ public class ChatRoomListActivity extends AppCompatActivity implements FabBtnSli
         Intent intent = new Intent(ChatRoomListActivity.this, ChatRoomActivity.class);
         intent.putExtra("roomName", roomName); // roomName데이터를 ChatRoomActivity로 넘김 (이후 채팅방 위에 방 제목 쓸 수 있음)
         startActivity(intent); // ChatRoomActivity로 이동 (roomName값 넘김)
+    }
+
+    //채팅방 검색
+    private void searchRoomDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.search_room, null); //
+        builder.setView(dialogView);
+
+        EditText roomNameEditText = (EditText) dialogView.findViewById(R.id.roomName); // 채팅방 제목 텍스트
+        EditText passwordEditText = (EditText) dialogView.findViewById(R.id.password); // 비밀번호 설정 텍스트
+
+        // 채팅방 생성 "확인" 버튼
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String roomName = roomNameEditText.getText().toString();
+                String roomPassword = passwordEditText.getText().toString();
+
+                if (roomPassword.equals("")) roomPassword = "null";
+                buttonLayout.removeAllViewsInLayout();
+                AppController.room_list.clear();
+                AppController.request_search_room(roomName, roomPassword);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
     }
 }

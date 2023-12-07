@@ -46,6 +46,19 @@
 
     <!-- 채팅방 삭제 -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/searchRoom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="17dp"
+        android:layout_marginBottom="17dp"
+
+        android:src="@android:drawable/ic_search_category_default"
+        app:fabCustomSize="48dp"
+        app:maxImageSize="27dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/removeChatRoom"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -59,6 +72,7 @@
         app:maxImageSize="27dp" />
 
     <!-- 채팅방 생성 -->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/createChatRoom"
         android:layout_width="50dp"
@@ -81,13 +95,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="15dp"
-        android:backgroundTint="?attr/colorAccent"
+        android:layout_marginStart="15dp"
 
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="?attr/colorAccent"
         android:src="@drawable/make"
-        app:tint="@null"
+        app:fabCustomSize="55dp"
         app:maxImageSize="47dp"
-        app:fabCustomSize="55dp" />
+        app:tint="@null" />
 
     <ImageView
         android:id="@+id/imageView"

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <EditText
-        android:id="@+id/roomNameEditText"
+        android:id="@+id/roomName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -18,13 +18,13 @@
         android:id="@+id/passwordCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/roomNameEditText"
+        android:layout_below="@+id/roomName"
         android:layout_marginStart="16dp"
         android:text="비밀번호 설정"
         android:onClick="onPasswordCheckBoxClicked" />
 
     <EditText
-        android:id="@+id/passwordEditText"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="비밀번호를 입력하세요"
